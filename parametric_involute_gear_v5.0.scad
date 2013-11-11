@@ -2,6 +2,9 @@
 // It is licensed under the Creative Commons - GNU GPL license.
 // © 2010 by GregFrost
 // http://www.thingiverse.com/thing:3575
+//
+// Modified several default values, and may modify units to match reality
+// Pressure angle changed from 28 to 20
 
 // Simple Test:
 //gear (circular_pitch=400,
@@ -12,7 +15,7 @@
 
 //Complex Spur Gear Test:
 //test_gears ();
-circular_pitch = 628;
+circular_pitch = 628;	//628~=7 Pd, mod 3.6
 hub_thickness=15;
 bore_diameter = 5;
 trap_width = 7;
@@ -178,7 +181,7 @@ module bevel_gear (
 	// For the bevel_gear_flat finish option, calculate the height of a cube to select the portion of the gear that includes the full pitch face.
 	bevel_gear_flat_height = pitch_apex - (cone_distance - face_width) * cos (pitch_angle);
 
-//	translate([0,0,-pitch_apex])
+	//translate([0,0,-pitch_apex])
 	difference ()
 	{
 		intersection ()
@@ -189,7 +192,7 @@ module bevel_gear (
 				translate ([0,0,pitch_apex-apex_to_apex])
 				cylinder ($fn=number_of_teeth*2, r1=root_cone_full_radius,r2=0,h=apex_to_apex);
 				for (i = [1:number_of_teeth])
-//				for (i = [1:1])
+				//for (i = [1:1])
 				{
 					rotate ([0,0,i*360/number_of_teeth])
 					{
@@ -238,7 +241,15 @@ module bevel_gear (
 	}	
 }
 
-module involute_bevel_gear_tooth (	back_cone_radius,	root_radius,	base_radius,	outer_radius,	pitch_apex,	cone_distance,	half_thick_angle,	involute_facets)
+module involute_bevel_gear_tooth (
+	back_cone_radius,
+	root_radius,
+	base_radius,
+	outer_radius,
+	pitch_apex,
+	cone_distance,
+	half_thick_angle,
+	involute_facets)
 {
 //	echo ("involute_bevel_gear_tooth",
 //		back_cone_radius,
