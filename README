@@ -1,10 +1,25 @@
-Parametric Involute Bevel and Spur Gears by GregFrost
+A theoretically simple tool set for creating finished gear models for 
+use coming off a 3d printer.  Hard work done by Greg Frost, I am
+adding features as I need them with an attempt to retain backwards compatibility
+and ease of use.  Be warned original units were weird, it is susggested you use module
+to specifiy your gear, not circular_pitch.  
+
+To create a gear compatible with V5.0, the conversion is:
+ ||	module = circular_pitch/180
+ ||	or 
+ ||	circular_pitch = 180* module
+
+**note circular_pitch does not correspond to the techincal deffinition which is measured in mm, 
+
+
+Based on parametric_involute_gear_v5.0 by GregFrost
 It is licensed under the Creative Commons - GNU GPL license.
 © 2010 by GregFrost
 http://www.thingiverse.com/thing:3575
 
 Modified several default values, and may modify units to match reality
 Pressure angle changed from 28 to 20
+found conversion factor to get "real" gears to come out of the tool
 
 ==================================
 ||		Usage					||
@@ -15,8 +30,8 @@ Pressure angle changed from 28 to 20
 *	all units are mm unless otherwise stated
 
 These units make gears that can mate
-	circular_pitch, diametral_pitch			// circular pitch in wierd units
-	pressure_angle=28,	//tooth pressure angle
+	module_gear, circular_pitch, diametral_pitch			//circular pitch in wierd units
+	pressure_angle=28,										//tooth pressure angle
 	twist=0,
 
 

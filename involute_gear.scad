@@ -7,29 +7,33 @@
 // Pressure angle changed from 28 to 20
 
 // Simple Test:
-//gear (circular_pitch=400,
-//	gear_thickness = 12,
-	//rim_thickness = 15,
-	//hub_thickness = 17,
-	//circles=8);
+/*gear (circular_pitch=400,
+	gear_thickness = 12,
+	rim_thickness = 15,
+	hub_thickness = 17,
+	circles=8);
+	*/
 
-//Complex Spur Gear Test:
-//test_gears ();
-module_number = 2; 					//standard metric way of specing a gear
-diametral_pitch = 1/module_number;		//metric diamterial pitch
-//circular_pitch = 628;			//non standard units//628~=7 Pd, mod 3.6
+module_number = 2; 						//standard metric way of specing a gear
+//diametral_pitch = 1/module_number;		//metric diamterial pitch
+Pc = module_number*180;			//non standard units//628~=7 Pd, mod 3.6
 hub_thickness=15;
 bore_diameter = 5;
 trap_width = 7;
 hardware_bore = 3.4;
-number_of_teeth = 33;
+N = 33;
 circles=0;
 
 difference()
 {
 	union()
 	{
-		gear (diametral_pitch, hub_thickness, bore_diameter, number_of_teeth, circles);
+		gear (
+			circular_pitch=Pc,
+			bore_diameter=5,
+			hub_thickness=15,
+			number_of_teeth=N
+			);
 		translate([bore_diameter/2,-5.5,0]) 	//center the cube
 			cube([10-bore_diameter/2,11,hub_thickness]); 	//width, length, height
 	}
