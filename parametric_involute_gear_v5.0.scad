@@ -23,14 +23,17 @@ hardware_bore = 3.4;
 number_of_teeth = 33;
 circles=8;
 
-difference(){
-	union(){
+difference()
+{
+	union()
+	{
 		gear (circular_pitch, hub_thickness, bore_diameter, number_of_teeth, circles);
 		translate([bore_diameter/2,-5.5,0]) 	//center the cube
 			cube([10-bore_diameter/2,11,hub_thickness]); 	//width, length, height
 	}
 
-	union(){
+	union()
+	{
 		translate([bore_diameter/2+1.3,-trap_width/2,hub_thickness-trap_width*1.3])
 			cube([3,trap_width,trap_width*1.3]);
 
@@ -251,14 +254,14 @@ module involute_bevel_gear_tooth (
 	half_thick_angle,
 	involute_facets)
 {
-//	echo ("involute_bevel_gear_tooth",
-//		back_cone_radius,
-//		root_radius,
-//		base_radius,
-//		outer_radius,
-//		pitch_apex,
-//		cone_distance,
-//		half_thick_angle);
+	//echo ("involute_bevel_gear_tooth",
+		//back_cone_radius,
+		//root_radius,
+		//base_radius,
+		//outer_radius,
+		//pitch_apex,
+		//cone_distance,
+		//half_thick_angle);
 
 	min_radius = max (base_radius*2,root_radius*2);
 

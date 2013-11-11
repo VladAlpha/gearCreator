@@ -1,0 +1,37 @@
+Parametric Involute Bevel and Spur Gears by GregFrost
+It is licensed under the Creative Commons - GNU GPL license.
+© 2010 by GregFrost
+http://www.thingiverse.com/thing:3575
+
+Modified several default values, and may modify units to match reality
+Pressure angle changed from 28 to 20
+
+==================================
+||		Usage					||
+==================================
+
+**	Gear arguments	**
+*	arguments that share a line are alterantive, only one should be used
+*	all units are mm unless otherwise stated
+
+These units make gears that can mate
+	circular_pitch, diametral_pitch			// circular pitch in wierd units
+	pressure_angle=28,	//tooth pressure angle
+	twist=0,
+
+
+these units can vary between gears in the same train	
+	gear_thickness			//thickness of thin web?
+	rim_thickness			//tooth width
+	circles	= 0				//qty of circular cutouts in gear face
+	number_of_teeth=15		//number of teeth on gear
+	clearance = 0.2	
+	rim_thickness=8		
+	rim_width=5			
+	hub_thickness=10		//Thickness of the center hub
+	hub_diameter=15		//Diameter of the center hub
+	bore_diameter=5		
+
+Advanced Settings
+	backlash=0,
+	involute_facets=0)
