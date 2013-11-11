@@ -313,7 +313,7 @@ module involute_bevel_gear_tooth (
 
 module gear (
 	number_of_teeth=15,
-	circular_pitch=false, diametral_pitch=false,
+	circular_pitch=false, diametral_pitch=false,	//diametrial pitch is US, Pc is used by tool
 	pressure_angle=28,
 	clearance = 0.2,
 	gear_thickness=5,
