@@ -4,14 +4,38 @@
 // http://www.thingiverse.com/thing:3575
 
 // Simple Test:
-gear (circular_pitch=2,
-	gear_thickness = 12,
-	rim_thickness = 15,
-	hub_thickness = 17,
-	circles=8);
+//gear (circular_pitch=400,
+//	gear_thickness = 12,
+	//rim_thickness = 15,
+	//hub_thickness = 17,
+	//circles=8);
 
 //Complex Spur Gear Test:
 //test_gears ();
+circular_pitch = 628;
+hub_thickness=15;
+bore_diameter = 5;
+trap_width = 7;
+hardware_bore = 3.4;
+number_of_teeth = 33;
+circles=8;
+
+difference(){
+	union(){
+		gear (circular_pitch, hub_thickness, bore_diameter, number_of_teeth, circles);
+		translate([bore_diameter/2,-5.5,0]) 	//center the cube
+			cube([10-bore_diameter/2,11,hub_thickness]); 	//width, length, height
+	}
+
+	union(){
+		translate([bore_diameter/2+1.3,-trap_width/2,hub_thickness-trap_width*1.3])
+			cube([3,trap_width,trap_width*1.3]);
+
+		translate([0,0,hub_thickness-0.6*trap_width])	//shift up
+			rotate([0,90,0])							//lay flat
+				cylinder(h=10+1, r = hardware_bore/2);	//hardware hole
+	}
+}
 
 // Meshing Double Helix:
 //meshing_double_helix ();
@@ -214,15 +238,7 @@ module bevel_gear (
 	}	
 }
 
-module involute_bevel_gear_tooth (
-	back_cone_radius,
-	root_radius,
-	base_radius,
-	outer_radius,
-	pitch_apex,
-	cone_distance,
-	half_thick_angle,
-	involute_facets)
+module involute_bevel_gear_tooth (	back_cone_radius,	root_radius,	base_radius,	outer_radius,	pitch_apex,	cone_distance,	half_thick_angle,	involute_facets)
 {
 //	echo ("involute_bevel_gear_tooth",
 //		back_cone_radius,
