@@ -29,7 +29,7 @@ these units can vary between gears in the same train
 	rim_thickness=8		
 	rim_width=5			
 	hub_thickness=10		//Thickness of the center hub
-	hub_diameter=15		//Diameter of the center hub
+	hub_diameter=15			//Diameter of the center hub
 	bore_diameter=5		
 
 Advanced Settings
