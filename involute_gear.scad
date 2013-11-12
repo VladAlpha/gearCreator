@@ -40,10 +40,10 @@ difference()
 			cube([10-motor_shaft_bore/2,11,center_height]); 	//width, length, height
 	}
 
-	union()
+	union()	//set screw hardware removed parts
 	{
 		translate([motor_shaft_bore/2+1.3,-trap_width/2,center_height-trap_width*1.2])
-			cube([3,trap_width,trap_width*1.3]);
+			cube([3,trap_width,trap_width*1.3]);		//nut trap box
 
 		translate([0,0,center_height-0.6*trap_width])	//shift up
 			rotate([0,90,0])							//lay flat
