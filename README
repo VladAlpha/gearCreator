@@ -25,9 +25,10 @@ found conversion factor to get "real" gears to come out of the tool
 ||		Usage					||
 ==================================
 
-**	Gear arguments	**
-*	arguments that share a line are alterantive, only one should be used
-*	all units are mm unless otherwise stated
+**********************************  Gear arguments ***********************************
+**		arguments that share a line are alterantive, only one should be used		**
+**		alll units are mm unless otherwise noted									**
+**************************************************************************************
 
 These units make gears that can mate
 	module_gear, circular_pitch, diametral_pitch			//circular pitch in wierd units
@@ -40,13 +41,22 @@ these units can vary between gears in the same train
 	rim_thickness			//tooth width
 	circles	= 0				//qty of circular cutouts in gear face
 	number_of_teeth=15		//number of teeth on gear
-	clearance = 0.2	
-	rim_thickness=8		
-	rim_width=5			
+	clearance = 0.2			//
+	rim_width=5				//
 	hub_thickness=10		//Thickness of the center hub
 	hub_diameter=15			//Diameter of the center hub
-	bore_diameter=5		
+	bore_diameter=5			//center hole diam
 
 Advanced Settings
 	backlash=0,
 	involute_facets=0)
+
+***********************************  Hub arguments ***********************************
+**		these make the sexy nub to let you bolt directly to a motor shaft 			**
+**************************************************************************************
+
+	motor_shaft_diameter = 5;		//nominal OD of motor shaft gear will mount on
+	motor_shaft_clearance = .6;		//clearance so your print will actually fit
+	trap_width = 6;					//across the flats for set screw nut
+	hardware_bore = 3.4;			//size of hole for set screw to fit through
+	center_height = 13.5;			//easily passed variable for gear center boss height

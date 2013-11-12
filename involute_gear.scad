@@ -15,35 +15,37 @@
 	*/
 
 module_number = 2; 						//standard metric way of specing a gear
-//diametral_pitch = 1/module_number;		//metric diamterial pitch
-Pc = module_number*180;			//non standard units//628~=7 Pd, mod 3.6
-hub_thickness=15;
-bore_diameter = 5;
-trap_width = 7;
+motor_shaft_diameter = 5;
+motor_shaft_clearance = .6;
+motor_shaft_bore = motor_shaft_clearance+motor_shaft_diameter;
+trap_width = 6;
 hardware_bore = 3.4;
 N = 33;
 circles=0;
+center_height = 13.5;
+tooth_width = 5.5;
 
 difference()
 {
 	union()
 	{
 		gear (
-			circular_pitch=Pc,
-			bore_diameter=5,
-			hub_thickness=15,
-			number_of_teeth=N
+			module_number=2,
+			bore_diameter=motor_shaft_bore,
+			hub_thickness=center_height,
+			number_of_teeth=N,
+			rim_thickness = tooth_width
 			);
-		translate([bore_diameter/2,-5.5,0]) 	//center the cube
-			cube([10-bore_diameter/2,11,hub_thickness]); 	//width, length, height
+		translate([motor_shaft_bore/2,-5.5,0]) 	//center the cube
+			cube([10-motor_shaft_bore/2,11,center_height]); 	//width, length, height
 	}
 
 	union()
 	{
-		translate([bore_diameter/2+1.3,-trap_width/2,hub_thickness-trap_width*1.3])
+		translate([motor_shaft_bore/2+1.3,-trap_width/2,center_height-trap_width*1.2])
 			cube([3,trap_width,trap_width*1.3]);
 
-		translate([0,0,hub_thickness-0.6*trap_width])	//shift up
+		translate([0,0,center_height-0.6*trap_width])	//shift up
 			rotate([0,90,0])							//lay flat
 				cylinder(h=10+1, r = hardware_bore/2);	//hardware hole
 	}
@@ -319,7 +321,7 @@ module involute_bevel_gear_tooth (
 
 module gear (
 	number_of_teeth=15,
-	circular_pitch=false, diametral_pitch=false,	//diametrial pitch is US, Pc is used by tool
+	circular_pitch=false, diametral_pitch=false, module_number = false,	//diametrial pitch is US, Pc is used by tool
 	pressure_angle=28,
 	clearance = 0.2,
 	gear_thickness=5,
@@ -333,8 +335,11 @@ module gear (
 	twist=0,
 	involute_facets=0)
 {
-	if (circular_pitch==false && diametral_pitch==false) 
+	if (circular_pitch==false && diametral_pitch==false && module_number==false) 
 		echo("MCAD ERROR: gear module needs either a diametral_pitch or circular_pitch");
+
+	//convert module to diametrial pitch because I don't know how to logic
+	diametral_pitch = (diametral_pitch!=false?diametral_pitch:1/module_number);
 
 	//Convert diametrial pitch to our native circular pitch
 	circular_pitch = (circular_pitch!=false?circular_pitch:180/diametral_pitch);
