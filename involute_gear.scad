@@ -298,8 +298,8 @@ module gear_with_setscrew (
 	shaft_diameter = false,			//diameter of shaft to be inserted into gear, use to include pre-set clearence
 	trap_width = 6,					//nut trap width across flats
 	hardware_bore = 3.4,			//set screw clearence hole
-	boss_length = 10,				//hardware boss length from CL along set screw
-	boss_width = 11,				//hadware boss width
+	boss_length,					//hardware boss length from CL along set screw
+	boss_width,					//hadware boss width
 
 	number_of_teeth=15,
 	circular_pitch=false, diametral_pitch=false, module_number = false,	//diametrial pitch is US, Pc is used by tool
@@ -348,7 +348,7 @@ module gear_with_setscrew (
 
 			translate([0,0,hub_thickness-0.6*trap_width])	//shift up
 				rotate([0,90,0])							//lay flat
-					cylinder(h=10+1, r = hardware_bore/2);	//hardware hole
+					cylinder(h=boss_length+1, r = hardware_bore/2);	//hardware hole
 		}
 	}
 }
