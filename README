@@ -1,3 +1,8 @@
+Based on parametric_involute_gear_v5.0 by GregFrost
+It is licensed under the Creative Commons - GNU GPL license.
+© 2010 by GregFrost
+http://www.thingiverse.com/thing:3575
+
 A theoretically simple tool set for creating finished gear models for 
 use coming off a 3d printer.  Hard work done by Greg Frost, I am
 adding features as I need them with an attempt to retain backwards compatibility
@@ -14,14 +19,18 @@ To create a gear compatible with V5.0, the conversion is:
 ** original tool to create gears you wish to mesh with as the old definition 
 ** has been retained.
 
-Based on parametric_involute_gear_v5.0 by GregFrost
-It is licensed under the Creative Commons - GNU GPL license.
-© 2010 by GregFrost
-http://www.thingiverse.com/thing:3575
-
 Modified several default values, and may modify units to match reality
 Pressure angle changed from 28 to 20
 found conversion factor to get "real" gears to come out of the tool
+
+
+==================================
+||		 To Do					||
+==================================
+*replace values for set screw with table of good values
+*clean up this read-me
+*add simple useage template to main file
+
 
 ==================================
 ||		Usage					||
@@ -62,3 +71,49 @@ motor_shaft_clearance = .6;		//clearance so your print will actually fit
 trap_width = 6;					//across the flats for set screw nut
 hardware_bore = 3.4;			//size of hole for set screw to fit through
 center_height = 13.5;			//easily passed variable for gear center boss height
+
+
+****************************** Typical Gears **********************************
+**	some notes on creating gears 											 **
+*******************************************************************************
+In my personal expereince, a mod 2 gear is a happy gear, as it prints nicely
+even on a very coarse .5mm nozzle, but still allows pretty small gears
+
+Minimum number of teeth:
+avoids intereference between a full depth pinion and a full depth rack
+pressure angle 		Min N
+	14.5			32
+	20 				18
+	25 				12
+
+
+Standard Module Values (metric gears)
+.3 		4
+.4 		5
+.5		6
+.8 		8
+1.0		10
+1.25	12	
+1.5 	16	
+2 		20
+3 		25
+
+
+Standard diametrial pitches (US style gears)
+Coarse		Fine
+1 			20
+1.25		24
+1.5			32
+1.75		48
+2 			64
+2.5 		72
+3 			80
+4			96
+5		
+6		
+8		
+10 		
+12		
+14		
+16		
+18 		
