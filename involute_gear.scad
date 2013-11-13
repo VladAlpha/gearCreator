@@ -296,8 +296,8 @@ module involute_bevel_gear_tooth (
 
 
 module gear_with_setscrew (
-	shaft_clearance = .7,
-	shaft_diameter = 5,				//diameter of shaft to be inserted into gear, use to include pre-set clearence
+	shaft_clearance = .7,			//how much to oversize center bore to fit shaft
+	shaft_diameter = false,			//diameter of shaft to be inserted into gear, use to include pre-set clearence
 	trap_width = 6,					//nut trap width across flats
 	hardware_bore = 3.4,			//set screw clearence hole
 	boss_length = 10,				//hardware boss length from CL along set screw
@@ -312,7 +312,7 @@ module gear_with_setscrew (
 	rim_width=5,
 	hub_thickness=10,
 	hub_diameter=15,
-	bore_diameter=5,
+	bore_diameter=5.7,
 	circles=0,
 	backlash=0,
 	twist=0,
@@ -320,9 +320,9 @@ module gear_with_setscrew (
 	)
 {
 
-	
+
 	//sets the hole size for the gear drive shaft
-	shaft_bore = shaft_clearance+shaft_diameter;
+	bore_diameter = (shaft_diameter!=false?shaft_diameter+shaft_clearance:bore_diameter);
 
 	difference()
 	{
@@ -330,7 +330,7 @@ module gear_with_setscrew (
 		{
 			gear (
 				module_number=module_number, circular_pitch=circular_pitch, diametral_pitch=diametral_pitch,
-				bore_diameter=shaft_bore,
+				bore_diameter=bore_diameter,
 				hub_thickness=hub_thickness,
 				number_of_teeth=number_of_teeth,
 				rim_thickness = rim_thickness

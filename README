@@ -25,13 +25,14 @@ found conversion factor to get "real" gears to come out of the tool
 
 
 ==================================
-||		 To Do					||
+||		 To Do & Issues			||
 ==================================
 *replace values for set screw with table of good values
 *clean up this read-me
 *add simple useage template to main file
 *change so that bore_diameter and shaft_diameter have sensible
 precedence over eachother
+*add support for D and DD shafts
 
 ==================================
 ||		Usage					||
