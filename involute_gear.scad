@@ -322,9 +322,9 @@ module gear_with_setscrew (
 	bore_diameter = (shaft_diameter!=false?shaft_diameter+shaft_clearance:bore_diameter);
 
 	//sets nut trap  boss dimensions
-	boss_length = bore_diameter + 6;
-	boss_width = trap_width + 5;
-	trap_length = trap_width/2;
+	if (boss_length==undef) boss_length = bore_diameter + 6;
+	if (boss_width==undef) boss_width = trap_width + 5;
+	if (trap_length==undef) trap_length = trap_width/2;
 
 	difference()
 	{
