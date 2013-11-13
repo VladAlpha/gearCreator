@@ -14,42 +14,17 @@
 	circles=8);
 	*/
 
-module_number = 2; 						//standard metric way of specing a gear
-shaft_diameter = 5;
-shaft_clearance = .6;
-shaft_bore = shaft_clearance+shaft_diameter;
-trap_width = 6;
-hardware_bore = 3.4;
-N = 33;
-circles=0;
-center_height = 13.5;
-tooth_width = 5.5;
-
-difference()
-{
-	union()
-	{
-		gear (
-			module_number=2,
-			bore_diameter=shaft_bore,
-			hub_thickness=center_height,
-			number_of_teeth=N,
-			rim_thickness = tooth_width
-			);
-		translate([shaft_bore/2,-5.5,0]) 	//center the cube
-			cube([10-shaft_bore/2,11,center_height]); 	//width, length, height
-	}
-
-	union()	//set screw hardware removed parts
-	{
-		translate([shaft_bore/2+1.3,-trap_width/2,center_height-trap_width*1.2])
-			cube([3,trap_width,trap_width*1.3]);		//nut trap box
-
-		translate([0,0,center_height-0.6*trap_width])	//shift up
-			rotate([0,90,0])							//lay flat
-				cylinder(h=10+1, r = hardware_bore/2);	//hardware hole
-	}
-}
+// Gear with M3 set screw
+gear_with_setscrew(
+module_number = 2, 						//standard metric way of specing a gear
+shaft_diameter = 5,
+shaft_clearance = .6,
+trap_width = 6,
+hardware_bore = 3.4,
+number_of_teeth = 34,
+circles=0,
+hub_thickness = 13.5,
+rim_thickness = 5.5);
 
 // Meshing Double Helix:
 //meshing_double_helix ();
@@ -322,9 +297,11 @@ module involute_bevel_gear_tooth (
 
 module gear_with_setscrew (
 	shaft_clearance = .7,
-	shaft_diameter = 5,		//diameter of shaft to be inserted into gear
+	shaft_diameter = 5,				//diameter of shaft to be inserted into gear, use to include pre-set clearence
 	trap_width = 6,					//nut trap width across flats
 	hardware_bore = 3.4,			//set screw clearence hole
+	boss_length = 10,				//hardware boss length from CL along set screw
+	boss_width = 11,				//hadware boss width
 
 	number_of_teeth=15,
 	circular_pitch=false, diametral_pitch=false, module_number = false,	//diametrial pitch is US, Pc is used by tool
@@ -339,16 +316,13 @@ module gear_with_setscrew (
 	circles=0,
 	backlash=0,
 	twist=0,
-	involute_facets=0,
+	involute_facets=0
 	)
 {
+
+	
 	//sets the hole size for the gear drive shaft
 	shaft_bore = shaft_clearance+shaft_diameter;
-
-	//all variables for nut trap feature are here to simplify tweaking
-	//seems uneccassary to make them inputs
-	boss_length = 10;
-	boss_width = 11;
 
 	difference()
 	{

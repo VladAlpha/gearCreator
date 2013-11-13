@@ -30,7 +30,8 @@ found conversion factor to get "real" gears to come out of the tool
 *replace values for set screw with table of good values
 *clean up this read-me
 *add simple useage template to main file
-
+*change so that bore_diameter and shaft_diameter have sensible
+precedence over eachother
 
 ==================================
 ||		Usage					||
@@ -67,6 +68,7 @@ Advanced Settings
 ******************************************************************************
 
 motor_shaft_diameter = 5;		//nominal OD of motor shaft gear will mount on
+								//can be used instead of bore_diameter
 motor_shaft_clearance = .6;		//clearance so your print will actually fit
 trap_width = 6;					//across the flats for set screw nut
 hardware_bore = 3.4;			//size of hole for set screw to fit through
