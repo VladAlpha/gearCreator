@@ -33,6 +33,7 @@ found conversion factor to get "real" gears to come out of the tool
 *change so that bore_diameter and shaft_diameter have sensible
 precedence over eachother
 *add support for D and DD shafts
+*large bores with thin walls will result in silly bosses
 
 ==================================
 ||		Usage					||

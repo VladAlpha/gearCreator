@@ -321,6 +321,11 @@ module gear_with_setscrew (
 	//sets the hole size for the gear drive shaft
 	bore_diameter = (shaft_diameter!=false?shaft_diameter+shaft_clearance:bore_diameter);
 
+	//sets nut trap  boss dimensions
+	boss_length = bore_diameter + 6;
+	boss_width = trap_width + 5;
+	trap_length = trap_width/2;
+
 	difference()
 	{
 		union()		//gear with boss for hardware on it
@@ -339,7 +344,7 @@ module gear_with_setscrew (
 		union()	//set screw hardware removed parts
 		{
 			translate([bore_diameter/2+1.3,-trap_width/2,hub_thickness-trap_width*1.2])
-				cube([3,trap_width,trap_width*1.3]);		//nut trap box
+				cube([trap_length,trap_width,trap_width*1.3]);		//nut trap box
 
 			translate([0,0,hub_thickness-0.6*trap_width])	//shift up
 				rotate([0,90,0])							//lay flat
