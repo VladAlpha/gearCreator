@@ -14,19 +14,17 @@
 	circles=8);
 	*/
 
-// Gear with M3 set screw
+// Demo Gear with M3 set screw
 gear_with_setscrew(
 module_number = 2, 						//standard metric way of specing a gear
 shaft_diameter = 5,
-shaft_clearance = .6,
 trap_width = 6,
 hardware_bore = 3.4,
 number_of_teeth = 34,
-circles=0,
 hub_thickness = 13.5,
 rim_thickness = 5.5);
 
-// Meshing Double Helix:
+// Demo Meshing Double Helix:
 //meshing_double_helix ();
 
 // Demonstrate the backlash option for Spur gears.
@@ -320,13 +318,12 @@ module gear_with_setscrew (
 	)
 {
 
-
 	//sets the hole size for the gear drive shaft
 	bore_diameter = (shaft_diameter!=false?shaft_diameter+shaft_clearance:bore_diameter);
 
 	difference()
 	{
-		union()
+		union()		//gear with boss for hardware on it
 		{
 			gear (
 				module_number=module_number, circular_pitch=circular_pitch, diametral_pitch=diametral_pitch,
@@ -335,16 +332,16 @@ module gear_with_setscrew (
 				number_of_teeth=number_of_teeth,
 				rim_thickness = rim_thickness
 				);
-			translate([shaft_bore/2,-boss_width/2,0]) 	//center the cube
-				cube([boss_length-shaft_bore/2,boss_width,hub_thickness]); 	//boss the set screw lives in
+			translate([bore_diameter/2,-boss_width/2,0]) 	//center the cube
+				cube([boss_length-bore_diameter/2,boss_width,hub_thickness]); 	//boss the set screw lives in
 		}
 
 		union()	//set screw hardware removed parts
 		{
-			translate([shaft_bore/2+1.3,-trap_width/2,hub_thickness-trap_width*1.2])
+			translate([bore_diameter/2+1.3,-trap_width/2,hub_thickness-trap_width*1.2])
 				cube([3,trap_width,trap_width*1.3]);		//nut trap box
 
-			translate([0,0,center_height-0.6*trap_width])	//shift up
+			translate([0,0,hub_thickness-0.6*trap_width])	//shift up
 				rotate([0,90,0])							//lay flat
 					cylinder(h=10+1, r = hardware_bore/2);	//hardware hole
 		}
