@@ -14,8 +14,8 @@
 	circles=8);
 	*/
 
-// Demo Gear with M3 set screw
-gear_with_setscrew(
+// Demo Gear with M3 bolt circle
+gear_with_flange(
 	module_number = 2, 						//standard metric way of specing a gear
 	shaft_diameter = 5,
 	trap_width = 6,
@@ -23,7 +23,18 @@ gear_with_setscrew(
 	number_of_teeth = 39,
 	hub_thickness = 13.5,
 	rim_thickness = 8,
-	no_bore = true);
+	no_bore = true);*/
+
+// Demo Gear with M3 set screw
+/*gear_with_setscrew(
+	module_number = 2, 						//standard metric way of specing a gear
+	shaft_diameter = 5,
+	trap_width = 6,
+	hardware_bore = 3.4,
+	number_of_teeth = 39,
+	hub_thickness = 13.5,
+	rim_thickness = 8,
+	no_bore = true);*/
 
 // Demo Meshing Double Helix:
 //meshing_double_helix ();
@@ -295,6 +306,79 @@ module involute_bevel_gear_tooth (
 
 
 module gear_with_setscrew (
+	shaft_clearance = .7,			//how much to oversize center bore to fit shaft
+	shaft_diameter = false,			//diameter of shaft to be inserted into gear, use to include pre-set clearence
+	trap_width = 6,					//nut trap width across flats
+	hardware_bore = 3.4,			//set screw clearence hole
+	boss_length,					//hardware boss length from CL along set screw
+	boss_width,					//hadware boss width
+
+	number_of_teeth=15,
+	circular_pitch=false, diametral_pitch=false, module_number = false,	//diametrial pitch is US, Pc is used by tool
+	pressure_angle=28,
+	clearance = 0.2,
+	gear_thickness=5,
+	rim_thickness=8,
+	rim_width=5,
+	hub_thickness=10,
+	hub_diameter=15,
+	bore_diameter=5.7,
+	circles=0,
+	backlash=0,
+	twist=0,
+	involute_facets=0,
+	no_bore=false
+	)
+{
+	//set screw hole diameter
+	hardware_bore = hardware_bore;
+
+	//sets the hole size for the gear drive shaft
+	bore_diameter = (shaft_diameter!=false?shaft_diameter+shaft_clearance:bore_diameter);
+
+	//sets nut trap  boss dimensions
+	//if (boss_length==undef) {boss_length = bore_diameter + 6;}
+	//if (boss_width==undef) {boss_width = trap_width + 5;}
+	//if (trap_length==undef) {trap_length = trap_width/2;}
+	// cant set variables inside if statements!
+	boss_length = bore_diameter + 6;
+	boss_width = trap_width + 5;
+	trap_length = trap_width/2;
+	
+	difference()
+	{
+		union()		//gear with boss for hardware on it
+		{
+			gear (
+				module_number=module_number, circular_pitch=circular_pitch, diametral_pitch=diametral_pitch,
+				bore_diameter=bore_diameter,
+				hub_thickness=hub_thickness,
+				number_of_teeth=number_of_teeth,
+				rim_thickness = rim_thickness,
+				no_bore = no_bore
+				);
+			translate([bore_diameter/2,-boss_width/2,0]) 	//center the cube
+				cube([boss_length-bore_diameter/2,boss_width,hub_thickness]); 	//boss the set screw lives in
+		}
+
+		union()	//set screw hardware removed parts
+		{
+			translate([bore_diameter/2+1.3,-trap_width/2,hub_thickness-trap_width*1.2])
+				cube([trap_length,trap_width,trap_width*1.3]);		//nut trap box
+
+			translate([0,0,hub_thickness-0.6*trap_width])	//shift up
+				rotate([0,90,0])							//lay flat
+					cylinder(h=boss_length+1, r = hardware_bore/2);	//hardware hole
+		}
+	}
+}
+
+module gear_with_flange (
+	bolt_flange_qty = 4,
+	bolt_flange_hardware = 2,
+	bolt_flange_bore,
+	bolt_flange_circle = 15,
+
 	shaft_clearance = .7,			//how much to oversize center bore to fit shaft
 	shaft_diameter = false,			//diameter of shaft to be inserted into gear, use to include pre-set clearence
 	trap_width = 6,					//nut trap width across flats

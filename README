@@ -35,9 +35,9 @@ precedence over eachother
 *add support for D and DD shafts
 *large bores with thin walls will result in silly bosses
 
-==================================
-||		Usage					||
-==================================
+			==================================
+			||		Usage					||
+			==================================
 
 *****************************  Gear arguments ********************************
 **		arguments that share a line are alterantive, only one 				**
@@ -65,6 +65,27 @@ Advanced Settings
 	backlash=0,
 	involute_facets=0
 	no_bore					//will not insert a centeral shaft hole
+
+*******************************  Fancy Gears *********************************
+**	There are currently 3 fancy gears in the works:							**
+**																			**
+**		* gear_with_setscrew: a gear with a axial hole for a set screw to 	**
+**		pin it to the gear 													**
+**																			**
+**		* gear_with_flange:	a gear with multiple holes in the center 		**
+**		boss to bolt it to a flange or hub 									**
+**																			**
+**		* gear_with_D:	a gear with a D shaped center bore to mate to 		**
+**		a shaft with a flat ground onto it									**
+**																			**
+**		* gear_with_DD:	a gear with a center hole intended to mate to  		**
+**		a shaft with two flats on it	 									**
+**																			**
+**																			**
+**	These all take the same arguments as listed above, in addition to 		**
+**	any more that are listed in their writeup as shown below				**
+******************************************************************************
+
 
 ******************************  Hub arguments ********************************
 **	these make the sexy nub to let you bolt directly to a motor shaft		**
