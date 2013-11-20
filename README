@@ -24,14 +24,15 @@ Pressure angle changed from 28 to 20
 found conversion factor to get "real" gears to come out of the tool
 
 
-==================================
-||		 To Do & Issues			||
-==================================
+			==================================
+			||		 To Do & Issues			||
+			==================================
 *replace values for set screw with table of good values
 *clean up this read-me
 *add simple useage template to main file
 *change so that bore_diameter and shaft_diameter have sensible
 precedence over eachother
+*consolidate module into gear() w/ flags????
 *add support for D and DD shafts
 *large bores with thin walls will result in silly bosses
 

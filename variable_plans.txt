@@ -1,0 +1,46 @@
+//only variables
+
+//******** control ***************//
+	counterbore = false,			//counterbore flange bolt holes
+	countersink = false,			//countersink flange bolts holes, ideal!
+	backside_flange = true,			//does the flange mount on the flat side of gear
+
+//******* Ad hoc Control *********//
+	no_bore=false
+
+//****** ideal driving dims ******//
+	bolt_flange_hardware = 2,
+
+
+//****** Intermediates	**********//
+	bolt_flange_hardware_clearance = .7,
+	shaft_clearance = .7,			//how much to oversize center bore to fit shaft
+	shaft_diameter = false,			//diameter of shaft to be inserted into gear, use to include pre-set clearence
+
+//******* actual part dims *******//
+
+	pressure_angle=28,
+	number_of_teeth=15,
+	bolt_flange_qty = 4
+	bolt_flange_hardware_bore,
+	bolt_flange_circle = 15,
+	hardware_bore = 3.4,
+	hub_thickness=10,
+	hub_diameter=15,
+	bore_diameter=5.7,
+	rim_thickness=8,
+	rim_width=5,
+	gear_thickness=5,
+
+//******** Unclassified **********//
+	trap_width = 6,					//nut trap width across flats
+	boss_length,					//hardware boss length from CL along set screw
+	boss_width,					//hadware boss width
+	trap_length = trap_width/2;
+
+	circular_pitch=false, diametral_pitch=false, module_number = false,	//diametrial pitch is US, Pc is used by tool
+	clearance = 0.2,
+	circles=0,
+	backlash=0,
+	twist=0,
+	involute_facets=0,
