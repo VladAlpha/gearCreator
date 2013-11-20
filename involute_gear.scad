@@ -16,13 +16,13 @@
 
 // Demo Gear with M3 set screw
 gear_with_setscrew(
-module_number = 2, 						//standard metric way of specing a gear
-shaft_diameter = 5,
-trap_width = 6,
-hardware_bore = 3.4,
-number_of_teeth = 34,
-hub_thickness = 13.5,
-rim_thickness = 5.5);
+	module_number = 2, 						//standard metric way of specing a gear
+	shaft_diameter = 5,
+	trap_width = 6,
+	hardware_bore = 3.4,
+	number_of_teeth = 39,
+	hub_thickness = 13.5,
+	rim_thickness = 8);
 
 // Demo Meshing Double Helix:
 //meshing_double_helix ();
@@ -322,10 +322,14 @@ module gear_with_setscrew (
 	bore_diameter = (shaft_diameter!=false?shaft_diameter+shaft_clearance:bore_diameter);
 
 	//sets nut trap  boss dimensions
-	if (boss_length==undef) boss_length = bore_diameter + 6;
-	if (boss_width==undef) boss_width = trap_width + 5;
-	if (trap_length==undef) trap_length = trap_width/2;
-
+	//if (boss_length==undef) {boss_length = bore_diameter + 6;}
+	//if (boss_width==undef) {boss_width = trap_width + 5;}
+	//if (trap_length==undef) {trap_length = trap_width/2;}
+	// cant set variables inside if statements!
+	boss_length = bore_diameter + 6;
+	boss_width = trap_width + 5;
+	trap_length = trap_width/2;
+	
 	difference()
 	{
 		union()		//gear with boss for hardware on it
@@ -533,215 +537,215 @@ module involute_gear_tooth (
 // Finds the angle of the involute about the base radius at the given distance (radius) from it's center.
 //source: http://www.mathhelpforum.com/math-help/geometry/136011-circle-involute-solving-y-any-given-x.html
 
-function involute_intersect_angle (base_radius, radius) = sqrt (pow (radius/base_radius, 2) - 1) * 180 / pi;
+	function involute_intersect_angle (base_radius, radius) = sqrt (pow (radius/base_radius, 2) - 1) * 180 / pi;
 
-// Calculate the involute position for a given base radius and involute angle.
+	// Calculate the involute position for a given base radius and involute angle.
 
-function rotated_involute (rotate, base_radius, involute_angle) = 
-[
-	cos (rotate) * involute (base_radius, involute_angle)[0] + sin (rotate) * involute (base_radius, involute_angle)[1],
-	cos (rotate) * involute (base_radius, involute_angle)[1] - sin (rotate) * involute (base_radius, involute_angle)[0]
-];
+	function rotated_involute (rotate, base_radius, involute_angle) = 
+	[
+		cos (rotate) * involute (base_radius, involute_angle)[0] + sin (rotate) * involute (base_radius, involute_angle)[1],
+		cos (rotate) * involute (base_radius, involute_angle)[1] - sin (rotate) * involute (base_radius, involute_angle)[0]
+	];
 
-function mirror_point (coord) = 
-[
-	coord[0], 
-	-coord[1]
-];
+	function mirror_point (coord) = 
+	[
+		coord[0], 
+		-coord[1]
+	];
 
-function rotate_point (rotate, coord) =
-[
-	cos (rotate) * coord[0] + sin (rotate) * coord[1],
-	cos (rotate) * coord[1] - sin (rotate) * coord[0]
-];
+	function rotate_point (rotate, coord) =
+	[
+		cos (rotate) * coord[0] + sin (rotate) * coord[1],
+		cos (rotate) * coord[1] - sin (rotate) * coord[0]
+	];
 
-function involute (base_radius, involute_angle) = 
-[
-	base_radius*(cos (involute_angle) + involute_angle*pi/180*sin (involute_angle)),
-	base_radius*(sin (involute_angle) - involute_angle*pi/180*cos (involute_angle)),
-];
+	function involute (base_radius, involute_angle) = 
+	[
+		base_radius*(cos (involute_angle) + involute_angle*pi/180*sin (involute_angle)),
+		base_radius*(sin (involute_angle) - involute_angle*pi/180*cos (involute_angle)),
+	];
 
 
 // Test Cases
 //===============
 
-module test_gears()
-{
-	translate([17,-15])
+	module test_gears()
 	{
-		gear (number_of_teeth=17,
-			circular_pitch=500,
-			circles=8);
-	
-		rotate ([0,0,360*4/17])
-		translate ([39.088888,0,0])
+		translate([17,-15])
 		{
-			gear (number_of_teeth=11,
+			gear (number_of_teeth=17,
+				circular_pitch=500,
+				circles=8);
+		
+			rotate ([0,0,360*4/17])
+			translate ([39.088888,0,0])
+			{
+				gear (number_of_teeth=11,
+					circular_pitch=500,
+					hub_diameter=0,
+					rim_width=65);
+				translate ([0,0,8])
+				{
+					gear (number_of_teeth=6,
+						circular_pitch=300,
+						hub_diameter=0,
+						rim_width=5,
+						rim_thickness=6,
+						pressure_angle=31);
+					rotate ([0,0,360*5/6])
+					translate ([22.5,0,1])
+					gear (number_of_teeth=21,
+						circular_pitch=300,
+						bore_diameter=2,
+						hub_diameter=4,
+						rim_width=1,
+						hub_thickness=4,
+						rim_thickness=4,
+						gear_thickness=3,
+						pressure_angle=31);
+				}
+			}
+
+			translate ([-61.1111111,0,0])
+			{
+				gear (number_of_teeth=27,
+					circular_pitch=500,
+					circles=5,
+					hub_diameter=2*8.88888889);
+
+				translate ([0,0,10])
+				{
+					gear (
+						number_of_teeth=14,
+						circular_pitch=200,
+						pressure_angle=5,
+						clearance = 0.2,
+						gear_thickness = 10,
+						rim_thickness = 10,
+						rim_width = 15,
+						bore_diameter=5,
+						circles=0);
+					translate ([13.8888888,0,1])
+					gear (
+						number_of_teeth=11,
+						circular_pitch=200,
+						pressure_angle=5,
+						clearance = 0.2,
+						gear_thickness = 10,
+						rim_thickness = 10,
+						rim_width = 15,
+						hub_thickness = 20,
+						hub_diameter=2*7.222222,
+						bore_diameter=5,
+						circles=0);
+				}
+			}
+		
+			rotate ([0,0,360*-5/17])
+			translate ([44.444444444,0,0])
+			gear (number_of_teeth=15,
+				circular_pitch=500,
+				hub_diameter=10,
+				rim_width=5,
+				rim_thickness=5,
+				gear_thickness=4,
+				hub_thickness=6,
+				circles=9);
+		
+			rotate ([0,0,360*-1/17])
+			translate ([30.5555555,0,-1])
+			gear (number_of_teeth=5,
 				circular_pitch=500,
 				hub_diameter=0,
-				rim_width=65);
-			translate ([0,0,8])
-			{
-				gear (number_of_teeth=6,
-					circular_pitch=300,
-					hub_diameter=0,
-					rim_width=5,
-					rim_thickness=6,
-					pressure_angle=31);
-				rotate ([0,0,360*5/6])
-				translate ([22.5,0,1])
-				gear (number_of_teeth=21,
-					circular_pitch=300,
-					bore_diameter=2,
-					hub_diameter=4,
-					rim_width=1,
-					hub_thickness=4,
-					rim_thickness=4,
-					gear_thickness=3,
-					pressure_angle=31);
-			}
+				rim_width=5,
+				rim_thickness=10);
 		}
-
-		translate ([-61.1111111,0,0])
-		{
-			gear (number_of_teeth=27,
-				circular_pitch=500,
-				circles=5,
-				hub_diameter=2*8.88888889);
-
-			translate ([0,0,10])
-			{
-				gear (
-					number_of_teeth=14,
-					circular_pitch=200,
-					pressure_angle=5,
-					clearance = 0.2,
-					gear_thickness = 10,
-					rim_thickness = 10,
-					rim_width = 15,
-					bore_diameter=5,
-					circles=0);
-				translate ([13.8888888,0,1])
-				gear (
-					number_of_teeth=11,
-					circular_pitch=200,
-					pressure_angle=5,
-					clearance = 0.2,
-					gear_thickness = 10,
-					rim_thickness = 10,
-					rim_width = 15,
-					hub_thickness = 20,
-					hub_diameter=2*7.222222,
-					bore_diameter=5,
-					circles=0);
-			}
-		}
-	
-		rotate ([0,0,360*-5/17])
-		translate ([44.444444444,0,0])
-		gear (number_of_teeth=15,
-			circular_pitch=500,
-			hub_diameter=10,
-			rim_width=5,
-			rim_thickness=5,
-			gear_thickness=4,
-			hub_thickness=6,
-			circles=9);
-	
-		rotate ([0,0,360*-1/17])
-		translate ([30.5555555,0,-1])
-		gear (number_of_teeth=5,
-			circular_pitch=500,
-			hub_diameter=0,
-			rim_width=5,
-			rim_thickness=10);
 	}
-}
 
-module meshing_double_helix ()
-{
-	test_double_helix_gear ();
-	
-	mirror ([0,1,0])
-	translate ([58.33333333,0,0])
-	test_double_helix_gear (teeth=13,circles=6);
-}
-
-module test_double_helix_gear (
-	teeth=17,
-	circles=8)
-{
-	//double helical gear
+	module meshing_double_helix ()
 	{
-		twist=200;
-		height=20;
-		pressure_angle=30;
-
-		gear (number_of_teeth=teeth,
-			circular_pitch=700,
-			pressure_angle=pressure_angle,
-			clearance = 0.2,
-			gear_thickness = height/2*0.5,
-			rim_thickness = height/2,
-			rim_width = 5,
-			hub_thickness = height/2*1.2,
-			hub_diameter=15,
-			bore_diameter=5,
-			circles=circles,
-			twist=twist/teeth);
-		mirror([0,0,1])
-		gear (number_of_teeth=teeth,
-			circular_pitch=700,
-			pressure_angle=pressure_angle,
-			clearance = 0.2,
-			gear_thickness = height/2,
-			rim_thickness = height/2,
-			rim_width = 5,
-			hub_thickness = height/2,
-			hub_diameter=15,
-			bore_diameter=5,
-			circles=circles,
-			twist=twist/teeth);
-	}
-}
-
-module test_backlash ()
-{
-	backlash = 2;
-	teeth = 15;
-
-	translate ([-29.166666,0,0])
-	{
-		translate ([58.3333333,0,0])
-		rotate ([0,0,-360/teeth/4])
-		gear (
-			number_of_teeth = teeth,
-			circular_pitch=700,
-			gear_thickness = 12,
-			rim_thickness = 15,
-			rim_width = 5,
-			hub_thickness = 17,
-			hub_diameter=15,
-			bore_diameter=5,
-			backlash = 2,
-			circles=8);
+		test_double_helix_gear ();
 		
-		rotate ([0,0,360/teeth/4])
-		gear (
-			number_of_teeth = teeth,
-			circular_pitch=700,
-			gear_thickness = 12,
-			rim_thickness = 15,
-			rim_width = 5,
-			hub_thickness = 17,
-			hub_diameter=15,
-			bore_diameter=5,
-			backlash = 2,
-			circles=8);
+		mirror ([0,1,0])
+		translate ([58.33333333,0,0])
+		test_double_helix_gear (teeth=13,circles=6);
 	}
 
-	color([0,0,128,0.5])
-	translate([0,0,-5])
-	cylinder ($fn=20,r=backlash / 4,h=25);
-}
+	module test_double_helix_gear (
+		teeth=17,
+		circles=8)
+	{
+		//double helical gear
+		{
+			twist=200;
+			height=20;
+			pressure_angle=30;
+
+			gear (number_of_teeth=teeth,
+				circular_pitch=700,
+				pressure_angle=pressure_angle,
+				clearance = 0.2,
+				gear_thickness = height/2*0.5,
+				rim_thickness = height/2,
+				rim_width = 5,
+				hub_thickness = height/2*1.2,
+				hub_diameter=15,
+				bore_diameter=5,
+				circles=circles,
+				twist=twist/teeth);
+			mirror([0,0,1])
+			gear (number_of_teeth=teeth,
+				circular_pitch=700,
+				pressure_angle=pressure_angle,
+				clearance = 0.2,
+				gear_thickness = height/2,
+				rim_thickness = height/2,
+				rim_width = 5,
+				hub_thickness = height/2,
+				hub_diameter=15,
+				bore_diameter=5,
+				circles=circles,
+				twist=twist/teeth);
+		}
+	}
+
+	module test_backlash ()
+	{
+		backlash = 2;
+		teeth = 15;
+
+		translate ([-29.166666,0,0])
+		{
+			translate ([58.3333333,0,0])
+			rotate ([0,0,-360/teeth/4])
+			gear (
+				number_of_teeth = teeth,
+				circular_pitch=700,
+				gear_thickness = 12,
+				rim_thickness = 15,
+				rim_width = 5,
+				hub_thickness = 17,
+				hub_diameter=15,
+				bore_diameter=5,
+				backlash = 2,
+				circles=8);
+			
+			rotate ([0,0,360/teeth/4])
+			gear (
+				number_of_teeth = teeth,
+				circular_pitch=700,
+				gear_thickness = 12,
+				rim_thickness = 15,
+				rim_width = 5,
+				hub_thickness = 17,
+				hub_diameter=15,
+				bore_diameter=5,
+				backlash = 2,
+				circles=8);
+		}
+
+		color([0,0,128,0.5])
+		translate([0,0,-5])
+		cylinder ($fn=20,r=backlash / 4,h=25);
+	}
 
