@@ -63,7 +63,8 @@ these units can vary between gears in the same train
 
 Advanced Settings
 	backlash=0,
-	involute_facets=0)
+	involute_facets=0
+	no_bore					//will not insert a centeral shaft hole
 
 ******************************  Hub arguments ********************************
 **	these make the sexy nub to let you bolt directly to a motor shaft		**

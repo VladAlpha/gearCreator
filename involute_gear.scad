@@ -22,7 +22,8 @@ gear_with_setscrew(
 	hardware_bore = 3.4,
 	number_of_teeth = 39,
 	hub_thickness = 13.5,
-	rim_thickness = 8);
+	rim_thickness = 8,
+	no_bore = true);
 
 // Demo Meshing Double Helix:
 //meshing_double_helix ();
@@ -314,7 +315,8 @@ module gear_with_setscrew (
 	circles=0,
 	backlash=0,
 	twist=0,
-	involute_facets=0
+	involute_facets=0,
+	no_bore=false
 	)
 {
 
@@ -339,7 +341,8 @@ module gear_with_setscrew (
 				bore_diameter=bore_diameter,
 				hub_thickness=hub_thickness,
 				number_of_teeth=number_of_teeth,
-				rim_thickness = rim_thickness
+				rim_thickness = rim_thickness,
+				no_bore = no_bore
 				);
 			translate([bore_diameter/2,-boss_width/2,0]) 	//center the cube
 				cube([boss_length-bore_diameter/2,boss_width,hub_thickness]); 	//boss the set screw lives in
@@ -373,6 +376,7 @@ module gear (
 	backlash=0,
 	twist=0,
 	involute_facets=0,
+	no_bore = false
 	)
 {
 	if (circular_pitch==false && diametral_pitch==false && module_number==false) 
@@ -448,10 +452,12 @@ module gear (
 				translate ([0,0,gear_thickness])
 				cylinder (r=hub_diameter/2,h=hub_thickness-gear_thickness);
 		}
-		translate ([0,0,-1])
-		cylinder (
-			r=bore_diameter/2,
-			h=2+max(rim_thickness,hub_thickness,gear_thickness));
+		if (!no_bore) {
+			translate ([0,0,-1])
+			cylinder (
+				r=bore_diameter/2,
+				h=2+max(rim_thickness,hub_thickness,gear_thickness));
+		}
 		if (circles>0)
 		{
 			for(i=[0:circles-1])	
@@ -534,8 +540,8 @@ module involute_gear_tooth (
 // Mathematical Functions
 //===============
 
-// Finds the angle of the involute about the base radius at the given distance (radius) from it's center.
-//source: http://www.mathhelpforum.com/math-help/geometry/136011-circle-involute-solving-y-any-given-x.html
+	// Finds the angle of the involute about the base radius at the given distance (radius) from it's center.
+	//source: http://www.mathhelpforum.com/math-help/geometry/136011-circle-involute-solving-y-any-given-x.html
 
 	function involute_intersect_angle (base_radius, radius) = sqrt (pow (radius/base_radius, 2) - 1) * 180 / pi;
 
