@@ -594,25 +594,8 @@ module involute_gear_tooth (
 
 	res=(involute_facets!=0)?involute_facets:($fn==0)?5:$fn/4;
 
-	union ()
-	{
-		for (i=[1:res])
-		assign (
-			point1=involute (base_radius,start_angle+(stop_angle - start_angle)*(i-1)/res),
-			point2=involute (base_radius,start_angle+(stop_angle - start_angle)*i/res))
-		{
-			assign (
-				side1_point1=rotate_point (centre_angle, point1),
-				side1_point2=rotate_point (centre_angle, point2),
-				side2_point1=mirror_point (rotate_point (centre_angle, point1)),
-				side2_point2=mirror_point (rotate_point (centre_angle, point2)))
-			{
-				polygon (
-					points=[[0,0],side1_point1,side1_point2,side2_point2,side2_point1],
-					paths=[[0,1,2,3,4,0]]);
-			}
-		}
-	}
+        list = [for (i=[0:res]) rotate_point (centre_angle, involute(base_radius,start_angle+(stop_angle - start_angle)*i/res))];
+        polygon(concat([[0,0]], list, [for (i=[res:-1:0]) mirror_point(list[i])]));
 }
 
 // Mathematical Functions
